@@ -1,0 +1,42 @@
+% Activate the following line by filling in the right side. If for example the name of the root file is Main.tex, write
+% "...root = Main.tex" if the chapter file is in the same directory, and "...root = ../Main.tex" if the chapter is in a subdirectory.
+ 
+% !TEX root = ../thesis.tex 
+
+\chapter{Conclusions and future work}
+\label{future_work_chapter}
+
+\section{Conclusions}
+
+The work presented in this thesis investigated the interaction between anatomy, image acquisition and parameter estimation. It was argued that PVE are a common thread that may be drawn between these disparate topics. PVE arise when the space of acquisition and analysis is ill-suited to the anatomy of interest, which negatively impacts subsequent parameter estimation. 
+
+Correction techniques have hitherto addressed the problem by seeking explicitly volumetric representations of anatomy. A more fundamental solution would be to address the root cause by instead operating in a space better suited to the anatomy, and this has been achieved by drawing inspiration from surface-based analysis techniques for the cortex. Though this does not preclude the existence of PVE within imaging data (which are inevitable given low spatial resolution), the convergence with surface techniques nevertheless represents a shift in thinking. In essence, PVE become part of the generative model that maps parameters of interest, in their respective spaces and anatomies, to the volumetric data they are expected to produce. Unlike existing volumetric approaches, PVEc is no longer regarded as an optional post-processing step; instead it is an intrinsic and defining feature of the estimation process itself. 
+
+Chapter \ref{pvec_chapter} investigated the origin of PVE and the efficacy of different correction strategies in the context of ASL data. It was shown that PVE interact with resampling, a key step in almost all processing pipelines, in an unpredictable manner that cannot fully be accounted for by subsequent correction. As such, a number of simple guiding principles were drawn (with the caveat that other issues besides PVE may be more important in a particular situation). Firstly, wherever possible, it is preferable to perform data analysis and PVEc in native acquisition space as this offers the greatest chance of successful correction. If analysis in a non-native space is required - for example, on some common template - then a \textit{double-resampling} strategy offers the best chance of successful correction. Within the context of within-session repeat acquisitions, it was found that PVEc can improve repeatability, though it is uncertain if this would hold between sessions or between subjects. 
+
+Chapter \ref{tob_pv_chapter} detailed the development of a new method for estimating PVs from surface segmentations. Evaluation and comparison against existing methods (both surface-based and volumetric) demonstrated that a surface-based approach can offer improved repeatability and robustness. Though the work in this chapter is useful in a standalone sense, it also comprises one of the building blocks of hybrid SVB inference. 
+
+Chapter \ref{projection_chapter} detailed the development of a framework for performing projection of volumetric data onto the cortical surface and vice-versa. In origin, this method is similar to the approach used by the HCP and a comparison showed that the two yield similar results, with some marginal benefits in favour of the new framework. The more important contribution of this chapter, however, was to introduce the key concepts underpinning hybrid SVB inference, in particular hybrid space. This is the mechanism by which signal separation between different anatomies is enforced, and hence the means by which PVE are incorporated into the generative model used by SVB. Accordingly, the work in this chapter may be best described as a specialised approach to projection designed for use within hybrid SVB, that can also be made to operate in a more general-purpose manner. 
+
+Chapter \ref{svb_chapter} introduced combined surface and volumetric (hybrid) SVB inference for ASL data. Using the work introduced in chapters \ref{tob_pv_chapter} and \ref{projection_chapter}, hybrid SVB offers a principled approach to obtaining parameter estimates directly in anatomies of interest, in the space that is most appropriate, which in turn implies the intrinsic application of PVEc. A substantial number of changes to an existing implementation of volumetric VB were required to enable surface inference; a subsequent calibration experiment revealed that the spatial prior is a particularly sensitive parameter that exhibits a bias-variance tradeoff. Evaluation on simulated ASL data revealed that hybrid inference is a viable approach, particularly when SNR is favourable, but numerous real-world challenges remain. In particular, in the presence of high noise, excessive levels of smoothing were applied on the surface and bias was observed in the subcortex. 
+
+
+\section{Future work}
+
+\subsubsection{The utility of surface-derived PV estimates for (conventional) PVEc}
+
+Chapter \ref{tob_pv_chapter} presented a limited analysis investigating the relationship between PV estimates and data known to contain PVE. In particular, it was found that uncorrected CBF derived from ASL data had a stronger correlation coefficient with surface-derived PV estimates than those from a volumetric method. This suggests that using surface-derived PV estimates could enable improved PVEc. This analysis would need to be repeated with a larger dataset to confirm this result. 
+
+\subsubsection{The use of a distributional prior on ATT}
+
+It was observed in the course of preparing the work of chapter \ref{svb_chapter} that a distributional, as opposed to spatial, prior on ATT did not sufficiently constrain hybrid SVB inference in the presence of high noise. Such behaviour was not observed with FABBER, which suggests the impact of the distributional prior is different under the two frameworks. It would be beneficial to investigate this further, with a view to re-introducing the distributional prior on ATT within SVB as it can more readily be justified in biophysical terms. 
+
+\subsubsection{Factors affecting spatial precision} 
+
+The work in chapter \ref{svb_chapter} revealed that numerous factors influence the weight given to the spatial prior (spatial precision $\phi$) that is deemed optimal by SVB or BASIL. Briefly, these can include the magnitude of the parameter to which the prior pertains (for example, WM CBF vs GM CBF); the relative distance between nodes (distance between voxel centres or surface vertices); and sampling density (the different number of neighbours for a given voxel versus a given vertex). Each of these can influence the magnitude of the sum of squared differences value obtained by applying the Laplacian matrix to a given parameter vector. In light of this, it is perhaps surprising that the prior on $\phi$ itself, a Gamma distribution, makes no allowance for these various factors (though Penny \textit{et al.} explicitly noted that knowledge of this topic at the time of their publication was limited \cite{Penny2005}). 
+
+It would be beneficial to investigate these factors further. Not only would they be of interest for improving the application of the spatial prior in SVB, they would also be of relevance for FABBER itself. Possible actions could include attempting to account for these factors adaptively; for example scaling $\phi$ with signal magnitude, mean node-to-node distance and sampling density. 
+
+\subsubsection{The relevance of the spatial prior for the surface}
+
+The final suggested area of future work concerns the necessity of the spatial prior in surface space. The analysis presented in section \ref{svb_future} demonstrated that the surface to volume projection between a typical 32k surface and 3mm isotropic voxel grid is in fact comfortably over-determined, with an average of eight voxels associated to each vertex. This implies that a high level of smoothing is already incorporated into the projection, and hence the separate application of the spatial prior may be redundant or indeed detrimental. It would be beneficial to continue this line of inquiry, most notably investigating whether the prior can be restricted to consider only the minority of vertices that are weakly determined. 

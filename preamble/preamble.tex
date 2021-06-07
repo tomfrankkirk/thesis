@@ -1,0 +1,69 @@
+% Activate the following line by filling in the right side. If for example the name of the root file is Main.tex, write
+% "...root = Main.tex" if the chapter file is in the same directory, and "...root = ../Main.tex" if the chapter is in a subdirectory.
+ 
+% !TEX root = ../thesis.tex 
+
+\chapter*{Acknowledgements}
+
+This has been a spectacularly odd time to finish and write up my project. A DPhil is a solitary experience at the best of times, let alone with the backdrop of the last year, but I am immensely lucky not to have suffered any serious disruption along the way. To my family, thank you for tolerating my hermit-like existence of the last few months (though I'm aware we've all been through the same trial by fire). To my fellow housemates in Oxford, I can't overstate the stability and enjoyment you have provided. I am sincerely going to miss living with Jacques, but even the best of things must come to an end (for now). As our mutual friend would say, \textit{bon}! 
+
+This document symbolises seven years of either being taught or supervised by Professor Michael Chappell. He has consistently given me the freedom and support to go about things as I see fit and he has greatly influenced my academic development as a result. Dr Flora Kennedy McConnell has also played a mentorship role of sorts, from inducting me to lunch club on day one, to always providing a knowing smile and suitably pithy comment about the challenges of doing `real science'. To the rest of Qubic / Physimals: I miss you all greatly and look forward to being reunited with you soon. 
+
+I have been lucky to collaborate with Tim Coalson during the development of Toblerone; his feedback was always maximum bang-for-buck, eerily prescient at getting to the heart of the matter, and the work is all the better for it. A collaboration with Dr Sriranga Kashyap delivered much of the \textit{in-vivo} data used in this work; that he was able to acquire anything at all given the circumstances is not something I take lightly. Thank you, Sri, and all the best of luck as you prepare to jump continents. 
+
+My final and most sincere thanks are to Dr Martin Craig, the guru-in-residence of the group and someone of limitless patience. His previous experience of teaching unruly kids clearly prepared him well for fielding my enthusiastically half-baked ideas in good humour. This project would not have been possible without his wisdom. 
+
+\clearpage
+\chapter*{Abstract}
+
+Anatomy interacts with all aspects of physiological imaging. Notably, volumetric techniques of limited spatial resolution struggle to image complex anatomies such as the cerebral cortex. One consequence of this is the partial volume effect, which introduces bias or confound into parameter measurements derived from such images. Fundamentally, the effect arises because the manner of image acquisition and analysis is not well-suited to the anatomy in question. Correction for partial volume effects is generally regarded as an optional post-processing step without a commonly agreed-upon strategy and it does not address the root cause of the problem. 
+
+Recently, surface-based methods have been shown to offer substantial advantages for the study of the cortex. The benefits follow from the fact that a surface representation is more appropriate for the anatomy of the cortex, namely, a thin and highly folded sheet that forms a topological sphere. Thus far, little work has investigated perfusion measurement in the cortex via arterial spin labelling in an explicitly surface-based manner, though such measurements could improve the understanding of brain function and disease. 
+
+This work represents the convergence of these two themes of partial volume effects and surface-based analysis. The major contribution is a framework for performing parameter estimation in a simultaneous surface-aware and volumetric manner, \textit{i.e.}, in the spaces that are most appropriate for the different anatomies present within the brain. The motivation for doing so is to realise the benefits of surface-based analysis for perfusion measurement in the cortex via arterial spin labelling, without negatively impacting measurement in the subcortex. As a consequence of the combined surface and volumetric approach, however, a new treatment of partial volume effects is obtained. Rather than considering these effects as a secondary problem that can be mitigated via post-processing, the entire approach is in fact built around them. By incorporating the anatomy that causes PVE directly into the generative model that is fit to the data, correction becomes an intrinsic feature of the estimation framework and not an afterthought. 
+
+\chapter*{Outputs arising from this work}
+
+\subsubsection{Publications} 
+
+\begin{itemize}
+\item{\textbf{Thomas Kirk}, Timothy Coalson, Martin Craig and Michael Chappell, \textit{Toblerone: surface-based partial volume estimation}, IEEE Transactions on Medical Imaging, vol. 39, no. 5, pp. 1501-1510, May 2020, doi: 10.1109/TMI.2019.2951080}
+
+\item{Flora A. Kennedy McConnell, Jack Toner, \textbf{Thomas Kirk}, Martin Craig, Davide Carone, Yuriko Suzuki, Tim Coalson, Matt Glasser, Mike Harms, and Michael Chappell, \textit{Arterial spin labelling perfusion MRI analysis for the Human Connectome Project Lifespan extensions to Aging and Development} [in preparation]}
+\end{itemize}
+
+
+\subsubsection{Conference proceedings}
+
+\begin{itemize}
+
+\item{\textbf{Thomas Kirk}, Timothy Coalson, Flora A. Kennedy McConnell and Michael Chappell, \textit{Toblerone: surface-based partial volume estimation}, proceedings of the International Society for Magnetic Resonance in Medicine annual meeting, poster, 2019}
+
+\item{\textbf{Thomas Kirk}, Timothy Coalson, Flora A. Kennedy McConnell and Michael Chappell, \textit{Toblerone: surface-based partial volume estimation}, proceedings of the Organisation for Human Brain Mapping annual meeting, poster, 2019}
+
+\item{\textbf{Thomas Kirk}, Flora A. Kennedy McConnell, Dimo Ivanov, Sriranga Kashyap, Martin Craig and Michael Chappell, \textit{Partial volume effect correction of arterial spin labelling data using surface segmentations}, proceedings of the International Society for Magnetic Resonance in Medicine annual meeting, poster, 2020}
+
+\item{Flora A. Kennedy McConnell, Jack Toner, \textbf{Thomas Kirk}, Martin Craig, Andrew Segerdahl, Michael Harms and Michael Chappell, \textit{Estimation of cortical perfusion from arterial spin labelling data on the cortical surface}, proceedings of the International Society for Magnetic Resonance in Medicine annual meeting, poster, 2020}
+
+\end{itemize}
+
+\clearpage
+\subsubsection{Software}
+\begin{itemize}
+\item{Toblerone: \textit{tools for surface-based analysis} [author]. \url{https://github.com/tomfrankkirk/toblerone}}	
+\item{Regtricks: \textit{tools for manipulating, combining and applying image transformations} [author]. \url{https://github.com/tomfrankkirk/regtricks}}
+\item{SVB: \textit{stochastic variational Bayes for timeseries model fitting} [co-author]. \url{https://github.com/physimals/svb}}
+\item{HCP-ASL: \textit{ASL pipeline for the Human Connectome Project} [co-author]. \url{https://github.com/physimals/hcp-asl}}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+

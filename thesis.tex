@@ -1,0 +1,119 @@
+\documentclass[12pt]{report}
+
+\usepackage{geometry}        
+\usepackage[parfill]{parskip}  
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+\usepackage{tabularx}
+\usepackage{nomencl}
+\makenomenclature
+\renewcommand{\nomname}{List of abbreviations}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage[square,numbers]{natbib}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{nopageno}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage[toc,page]{appendix}
+\usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue, 
+            citecolor=blue, urlcolor=blue]{hyperref}
+
+            
+% custom commands 
+\geometry{letterpaper, margin=3cm}    
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\newcommand{\mat}[1]{\mathrm{#1}}
+\newcommand{\mytilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}
+\newcommand{\cbf}{ml/100g$\cdot$min}
+
+% change name of bib
+\renewcommand{\bibname}{References}
+
+% removing most hyphens 
+%\tolerance=1
+%\emergencystretch=\maxdimen
+%\hyphenpenalty=10
+%\hbadness=10
+
+% don't split footnotes
+\interfootnotelinepenalty=10000
+
+%\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\graphicspath{{2lit/figs/}
+			  {.}
+			  {3pvec_resampling/figs/}
+			  {4tob_pv_estimation/figs/}
+			  {5tob_projection/figures/}
+			  {6svb_evaluation/figs/}
+			  {7future/figs/}
+			  }
+
+\begin{document}
+\begin{titlepage}
+   \begin{center}
+
+       \textbf{\LARGE Anatomically informed Bayesian inference\\for physiological imaging\\}
+       \vspace{2cm}
+       \includegraphics[width=0.6\textwidth]{oxlogo}
+
+		\vfill
+       {\Large Thomas Kirk}
+        \vspace{0.4cm}
+
+       {\large Magdalen College\\}
+       {\large University of Oxford\\}
+
+       \vfill
+            
+       A thesis presented for the degree of\\
+       \textit{Doctor of Philosophy}\\
+       \vspace{0.8cm}
+
+       Trinity Term 2021
+            
+   \end{center}
+\end{titlepage}
+
+% preamble, contents, abbreviations 
+\include{preamble/preamble}
+\tableofcontents
+\include{preamble/abbreviations}
+
+% headers on pages, double spacing 
+\newpage
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{14.49998pt}
+\fancyhead[OL]{\itshape\nouppercase{\leftmark}}
+\fancyhead[OR]{\thepage}
+\doublespacing
+
+% main material 
+\include{1intro/intro}
+\include{2lit/lit}
+\include{3pvec_resampling/pvec_resampling}
+\include{4tob_pv_estimation/tob_pv_estimation}
+\include{5tob_projection/tob_projection}
+\include{6svb_evaluation/svb_evaluation}
+\include{7future/future}
+
+% appendices and references 
+\singlespacing
+\include{appendices/appendices}
+\bibliographystyle{unsrtnat}
+\bibliography{library.bib}
+
+\end{document}
+\end
+
