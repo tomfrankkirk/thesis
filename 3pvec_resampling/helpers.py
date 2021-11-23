@@ -36,7 +36,7 @@ def load_oxasl(from_dir, pvec=True):
         ], axis=-1)
     
     else: 
-        gm = op.join(from_dir, 'output', 'native', 'perfusion.nii.gz')
+        gm = op.join(from_dir, 'output', 'native', 'perfusion_calib.nii.gz')
         return nibabel.load(gm).get_fdata()
     
 def load_lr(from_dir):

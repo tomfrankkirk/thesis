@@ -1,0 +1,3 @@
+slicer sub-SS_run-01_scale-1_space-native_M0.nii.gz sub-SS_run-01_scale-1_space-native_pvgm_fast.nii.gz -s 3 -u -x 0.25 a.png -x 0.5 b.png -x 0.75 c.png -y 0.25 d.png -y 0.5 e.png -y 0.75 f.png -z 0.25 g.png -z 0.5 h.png -z 0.75 i.png
+
+pngappend a.png + b.png + c.png - d.png + e.png + f.png - g.png + h.png + i.png ss_gm_on_m0.png

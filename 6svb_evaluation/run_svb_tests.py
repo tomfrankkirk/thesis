@@ -1,5 +1,5 @@
 import sys 
-sys.path.append('../pvec_resampling')
+sys.path.append('../3pvec_resampling')
 
 import numpy as np 
 import os.path as op 
@@ -116,7 +116,7 @@ def rois_flat(surf):
 def simulate_repeat_data(): 
 
     # Load anatomical surfaces for subject 103818 of HCP 
-    sdir = "/mnt/hgfs/Data/toblerone_evaluation_data/HCP_retest/test/103818/T1w/fsaverage_LR32k"
+    sdir = "/mnt/hgfs/Data/thesis_data/tob_pv_estimation/HCP_retest/test/103818/T1w/fsaverage_LR32k"
     LPS = op.join(sdir, '103818.L.pial.32k_fs_LR.surf.gii')
     LWS = op.join(sdir, '103818.L.white.32k_fs_LR.surf.gii')
     RPS = op.join(sdir, '103818.R.pial.32k_fs_LR.surf.gii')
@@ -156,7 +156,7 @@ def simulate_repeat_data():
 
     activation = np.zeros(LIS.n_points)
     roi_rings = rois_as_rings(LIS)
-    for rings, sign in zip(roi_rings, [1,1,1,1,1,-1,-1]): 
+    for rings, sign in zip(roi_rings, [1,1,1,0,0,-1,-1]): 
         x = np.arange(len(rings))
         for intensity, n in zip(1 - (x / N_DILATIONS) ** 3,
                                 rings): 
@@ -333,7 +333,7 @@ def evaluate_spatial_prior():
     LIS = toblerone.Surface(
         op.join(SIM_ROOT, '103818.L.very_inflated.32k_fs_LR.surf.gii'))
     LIS = LIS.transform(proj.spc.world2vox)
-    scale = 3
+    scale = 1
     sine = (np.sin(inds[1] / scale) 
             + np.sin(inds[0] / scale) 
             + np.sin(inds[2] / scale))
@@ -389,7 +389,7 @@ def evaluate_spatial_prior():
 def fit_simulated_repeats(): 
 
     # simulations 
-    sim_root = op.join(SIM_ROOT, '../hybrid_svb_sims')
+    sim_root = op.join(SIM_ROOT, '')
     svb_jobs = []
     oxasl_jobs = [] 
 
@@ -402,7 +402,8 @@ def fit_simulated_repeats():
         **{ f'pld{n+1}' : p for n,p in enumerate(PLDS) }
     }
 
-    svb_opts = dict(plds=PLDS, repeats=PLD_REPEATS, tau=TAU, casl=True)
+    svb_opts = dict(plds=PLDS, repeats=PLD_REPEATS, tau=TAU, casl=True,
+                    laplacian_in_weight=1000)
 
     # # SVB on common space data 
     # rdir =  op.join(sim_root, 'rpt1')
@@ -476,6 +477,6 @@ def fit_simulated_repeats():
 
 if __name__ == '__main__':
 
-    evaluate_spatial_prior()
+    # evaluate_spatial_prior()
     # simulate_repeat_data()
-    # fit_simulated_repeats()
+    fit_simulated_repeats()
